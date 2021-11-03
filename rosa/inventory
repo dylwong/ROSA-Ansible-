@@ -1,0 +1,12 @@
+```
+[all:vars]
+import=settings.ini
+###############################################################################
+# Required configuration variables for Assisted Install Installations         #
+###############################################################################
+
+name=rdo-rosa
+
+api=""
+[localhost]
+localhost ansible_connection=local 

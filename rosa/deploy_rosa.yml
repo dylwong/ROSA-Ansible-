@@ -1,0 +1,12 @@
+---
+- name: deploy rosa
+  hosts: localhost
+  become: False
+  roles:
+    - create_rosa
+  vars:
+  - rosa: True
+
+
+
+

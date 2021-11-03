@@ -1,0 +1,36 @@
+---
+- name: Login to rosa
+  command: rosa login --token "{{ api_token }}" 
+
+- name: check oc command
+  command: rosa verify oc 
+  register: command_result
+
+- name: check permissions
+  command: rosa verify permissions --debug
+  register: command_result
+  failed_when: "'ok' not in command_result.stderr"
+
+- name: check quota
+  command: rosa verify quota --debug
+  register: command_result
+  failed_when: "'ok' not in command_result.stderr"
+
+- name: initialize rosa service
+  command: rosa init
+
+- name: install rosa cluster
+  command: rosa create cluster --cluster-name="{{ CLUSTER_NAME }}"
+
+- name: describe cluster
+  command: rosa describe cluster --cluster="{{ CLUSTER_NAME }}"
+  register: command_result 
+
+- name: make admin
+  command: rosa create admin --cluster="{{ CLUSTER_NAME }}"
+  register: command_result
+
+- name: set fact
+  set_fact:
+    admin_creds: "{{ command_result.stdout }}"
+

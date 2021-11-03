@@ -1,0 +1,4 @@
+---
+api_token: "{{ api }}"
+oc_cmd_opt: rosa
+CLUSTER_NAME: "{{ name }}"
